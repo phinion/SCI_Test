@@ -5,10 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputHandler
 {
-    PlayerCharacter player;
-    PlayerControls playerControls;
+    private PlayerCharacter player;
+    private PlayerControls playerControls;
     
-    public Vector2 movementInput { get; private set; }
+    public Vector2 MoveVector { get; private set; }
+    public bool JumpInput { get; private set; }
     
     public PlayerInputHandler(PlayerCharacter _player)
     {
@@ -24,14 +25,18 @@ public class PlayerInputHandler
         {
             playerControls = new PlayerControls();
 
-            playerControls.Player.Move.performed += i => movementInput = i.ReadValue<Vector2>();
-            playerControls.Player.Move.canceled += i => movementInput = Vector2.zero;
+            playerControls.Player.Move.performed += i =>    MoveVector = i.ReadValue<Vector2>();
+            playerControls.Player.Move.canceled += i =>     MoveVector = Vector2.zero;
 
+            playerControls.Player.Jump.performed += i =>    JumpInput = true;
+            playerControls.Player.Jump.canceled += i =>     JumpInput = false;
         }
 
         playerControls.Enable();
         Debug.Log("Input Setup");
     }
+
+
 
     public void Disable()
     {

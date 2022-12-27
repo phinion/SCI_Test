@@ -1,20 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCharacter : CharacterBase
 {
-    PlayerInputHandler inputHandler;
+
     Rigidbody2D rigidBody;
 
-    private float moveSpeed = 5f;
+    PlayerInputHandler inputHandler;
+    CharacterLocomotion locomotion;
 
+
+    public float moveSpeed = 10f;
+    public float jumpSpeed = 10f;
+
+    public bool isGrounded = false;
+
+    private void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), 0.2f);
+    }
 
     // Start is called before the first frame update
     private void Start()
     {
         inputHandler = new PlayerInputHandler(this);
         rigidBody = GetComponent<Rigidbody2D>();
+
+        locomotion = new CharacterLocomotion(rigidBody);
     }
 
     private void OnDisable()
@@ -22,29 +38,50 @@ public class PlayerCharacter : CharacterBase
         inputHandler.Disable();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Move();
-    }
-    
-    protected override void Jump()
-    {
-        throw new System.NotImplementedException();
+        locomotion.SetVelocityUpdate();     // maybe remove
+        isGrounded = CheckIfGrounded();
     }
 
+    public bool CheckIfGrounded()
+    {
+        return Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - 0.5f), 0.2f, LayerMask.GetMask("Ground"));
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        Move();
+        Jump();
+    }
+    
     protected override void Move()
     {
-        if (inputHandler.movementInput.magnitude > 0.2f)
+        //if grounded
+
+        // Deadzone check for horizontal input
+        if (Mathf.Abs(inputHandler.MoveVector.x) > 0.2f)
         {
-            transform.position += new Vector3(inputHandler.movementInput.x, 0f, 0f) * moveSpeed * Time.deltaTime;
+            locomotion.HorizontalMovement(moveSpeed, inputHandler.MoveVector.x);
         }
         else
         {
-            Debug.Log("No Movement");
+            locomotion.SimulateDrag(moveSpeed);
         }
     }
 
+    protected override void Jump()
+    {
+        //check grounded
+        if (isGrounded)
+        {
+            if (inputHandler.JumpInput)
+            {
+                Debug.Log("Jump");
+                locomotion.SetVelocityY(jumpSpeed);
+            }
+        }
+    }
 
-    
 }
