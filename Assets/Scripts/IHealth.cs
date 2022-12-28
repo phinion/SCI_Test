@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IHealth
 {
-	int Health { get; set; }
+	int Health { get;}
 	void TakeDamage(int amount);
 	void Heal(int amount);
 	void Die();

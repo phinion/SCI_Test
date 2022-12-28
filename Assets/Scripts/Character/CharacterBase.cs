@@ -20,7 +20,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
     public float jumpSpeed = 15f;
 
     public bool IsGrounded { get; private set; }
-    public int Health { get; set; }
+    public int Health { get; private set; }
 
     private void OnDrawGizmos()
     {
@@ -36,6 +36,8 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
 
         Animator animator = GetComponent<Animator>();
         animationHandler = new CharacterAnimationHandler(animator);
+
+        Health = 0;
     }
     protected virtual void Update()
     {
@@ -79,7 +81,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
     // Allows the character to Jump
     protected abstract void Jump();
 
-    public void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount)
     {
         Health -= amount;
 
@@ -91,7 +93,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
 
     }
 
-    public void Heal(int amount)
+    public virtual void Heal(int amount)
     {
         Health += amount;
     }

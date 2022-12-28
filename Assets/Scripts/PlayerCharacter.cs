@@ -7,6 +7,8 @@ public class PlayerCharacter : CharacterBase
 {
     PlayerInputHandler inputHandler;
 
+    public HealthUI healthUI;
+
     #region UnityCallbackFunctions
 
     // Start is called before the first frame update
@@ -16,7 +18,7 @@ public class PlayerCharacter : CharacterBase
 
         inputHandler = new PlayerInputHandler(this);
 
-        Health = 3;
+        Heal(3);
     }
 
     private void OnDisable()
@@ -58,6 +60,18 @@ public class PlayerCharacter : CharacterBase
     }
 
     #endregion
+
+    public override void TakeDamage(int amount)
+    {
+        base.TakeDamage(amount);
+        healthUI.SetHealthUI(Health);
+    }
+
+    public override void Heal(int amount)
+    {
+        base.Heal(amount);
+        healthUI.SetHealthUI(Health);
+    }
 
     protected override void Move()
     {

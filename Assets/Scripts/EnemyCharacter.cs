@@ -15,7 +15,7 @@ public class EnemyCharacter : CharacterBase
     {
         base.Start();
 
-        Health = 1;
+        Heal(1);
     }
 
     protected override void FixedUpdate()
