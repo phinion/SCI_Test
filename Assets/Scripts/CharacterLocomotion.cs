@@ -10,6 +10,7 @@ public class CharacterLocomotion
     private const float dragThreshold = 0.01f;
 
     public Vector2 CurrentVelocity { get; private set; }
+
     
     public CharacterLocomotion(Rigidbody2D _rigidbody)
     {
@@ -24,7 +25,9 @@ public class CharacterLocomotion
         rigidbody.AddForce(new Vector2(_moveSpeedModifier * _xInput * (((CurrentVelocity.x < 0 && _xInput > 0) || (CurrentVelocity.x > 0 && _xInput < 0)) ? 2 : 1), 0));
 
         // Clamping the velocity so it doesn't continue accelerating
-        rigidbody.velocity = new Vector2(Mathf.Clamp(CurrentVelocity.x, -_moveSpeedModifier, _moveSpeedModifier), CurrentVelocity.y);
+
+        SetVelocityX(Mathf.Clamp(CurrentVelocity.x, -_moveSpeedModifier, _moveSpeedModifier));
+        //rigidbody.velocity = new Vector2(Mathf.Clamp(CurrentVelocity.x, -_moveSpeedModifier, _moveSpeedModifier), CurrentVelocity.y);
     }
 
     public void SimulateDrag(float _moveSpeedModifier)

@@ -7,8 +7,12 @@ public class PlayerInputHandler
 {
     private PlayerCharacter player;
     private PlayerControls playerControls;
-    
+
+    private const float moveThreshhold = 0.2f;
+
+    public bool MoveThresholdMet => (Mathf.Abs(MoveVector.x) > moveThreshhold ? true : false);
     public Vector2 MoveVector { get; private set; }
+    public CharacterFacingDirection MoveDirection => (MoveVector.x < 0 ? CharacterFacingDirection.left : CharacterFacingDirection.right);
     public bool JumpInput { get; private set; }
     
     public PlayerInputHandler(PlayerCharacter _player)
@@ -25,11 +29,11 @@ public class PlayerInputHandler
         {
             playerControls = new PlayerControls();
 
-            playerControls.Player.Move.performed += i =>    MoveVector = i.ReadValue<Vector2>();
-            playerControls.Player.Move.canceled += i =>     MoveVector = Vector2.zero;
+            playerControls.Player.Move.performed += i =>        MoveVector = i.ReadValue<Vector2>();
+            playerControls.Player.Move.canceled += i =>         MoveVector = Vector2.zero;
 
-            playerControls.Player.Jump.performed += i =>    JumpInput = true;
-            playerControls.Player.Jump.canceled += i =>     JumpInput = false;
+            playerControls.Player.Jump.performed += i =>        JumpInput = true;
+            playerControls.Player.Jump.canceled += i =>         JumpInput = false;
         }
 
         playerControls.Enable();
