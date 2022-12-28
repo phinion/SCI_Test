@@ -7,7 +7,7 @@ public class CharacterLocomotion
     private Rigidbody2D rigidbody;
     private Vector2 workspace;
 
-    private const float dragThreshold = 0.01f;
+    private const float dragThreshold = 0.1f;
 
     public Vector2 CurrentVelocity { get; private set; }
 

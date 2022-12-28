@@ -5,43 +5,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacter : CharacterBase
 {
-
-    //Rigidbody2D rigidBody;
-
     PlayerInputHandler inputHandler;
-    CharacterLocomotion locomotion;
-    CharacterAnimationHandler animationHandler;
-
-
-    public float moveSpeed = 10f;
-    public float jumpSpeed = 15f;
-
-    public bool isGrounded = false;
-
-    private const float feetYOffset = -0.5f;
-    private const float groundCheckRadius = 0.2f;
-
-    private CharacterFacingDirection currentFacingDirection = CharacterFacingDirection.left;
 
     #region UnityCallbackFunctions
-    private void OnDrawGizmos()
-    {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + feetYOffset, transform.position.z), groundCheckRadius);
-    }
 
     // Start is called before the first frame update
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         inputHandler = new PlayerInputHandler(this);
 
-
-        Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
-        locomotion = new CharacterLocomotion(rigidBody);
-
-        Animator animator = GetComponent<Animator>();
-        animationHandler = new CharacterAnimationHandler(animator);
+        Health = 3;
     }
 
     private void OnDisable()
@@ -49,49 +24,40 @@ public class PlayerCharacter : CharacterBase
         inputHandler.Disable();
     }
 
-    private void Update()
-    {
-        locomotion.SetVelocityUpdate();     // maybe remove
-
-        GroundCheck();
-    }
-
     // Update is called once per frame
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         Move();
         Jump();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        CharacterBase objCollidedWith = collision.gameObject.GetComponent<CharacterBase>();
+
+        if (objCollidedWith != null)
+        {
+            //check if above enemy to deal damage
+            if (transform.position.y + feetYOffset > objCollidedWith.transform.position.y)
+            {
+                objCollidedWith.TakeDamage(1);
+                locomotion.SetVelocityY(jumpSpeed);
+
+            }
+            // Take damage
+            else 
+            {
+                TakeDamage(1);
+                locomotion.SetVelocityX(moveSpeed * (transform.position.x > objCollidedWith.transform.position.x ? 1 : -1));
+                locomotion.SetVelocityY(jumpSpeed);
+            }
+
+        }
+    }
+
     #endregion
-
-    public void GroundCheck()
-    {
-        isGrounded = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y + feetYOffset), groundCheckRadius, LayerMask.GetMask("Ground"));
-
-        // Check so that animator bool value is only set once
-        // reminder: one is for grounded and the other is for in air. If they are equal, then IsGrounded has changed so animator should be updated
-        if (animationHandler.GetInAirBool == isGrounded)
-        {
-            animationHandler.SetInAirBool(!isGrounded);
-        }
-
-        //return Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - 0.5f), 0.2f, LayerMask.GetMask("Ground"));
-    }
-
-    public void CheckFacingDirection()
-    {
-        if (currentFacingDirection != inputHandler.MoveDirection)
-        {
-            UpdateFacingDirection(inputHandler.MoveDirection);
-        }
-    }
-
-    private void UpdateFacingDirection(CharacterFacingDirection _newDirection)
-    {
-        transform.Rotate(0.0f, 180.0f, 0.0f);
-        currentFacingDirection = _newDirection;
-    }
 
     protected override void Move()
     {
@@ -99,14 +65,15 @@ public class PlayerCharacter : CharacterBase
         if (inputHandler.MoveThresholdMet)
         {
             Debug.Log("moving");
+            isActivelyMoving = true;
             locomotion.HorizontalMovement(moveSpeed, inputHandler.MoveVector.x);
 
-            CheckFacingDirection();
+            UpdateFacingDirection(inputHandler.MoveDirection);
             animationHandler.SetWalkValue(1);
         }
-        else if (isGrounded)
+        else if (IsGrounded)
         {
-            locomotion.SimulateDrag(moveSpeed);
+            isActivelyMoving = false;
             animationHandler.SetWalkValue(0);
         }
     }
@@ -114,7 +81,7 @@ public class PlayerCharacter : CharacterBase
     protected override void Jump()
     {
         //check grounded
-        if (isGrounded)
+        if (IsGrounded)
         {
             if (inputHandler.JumpInput)
             {
