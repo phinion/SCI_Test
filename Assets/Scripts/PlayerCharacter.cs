@@ -31,8 +31,8 @@ public class PlayerCharacter : CharacterBase
     {
         base.FixedUpdate();
 
-        Move();
-        Jump();
+        CheckMove();
+        CheckJump();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -49,7 +49,7 @@ public class PlayerCharacter : CharacterBase
 
             }
             // Take damage
-            else 
+            else
             {
                 TakeDamage(1);
                 locomotion.SetVelocityX(moveSpeed * (transform.position.x > objCollidedWith.transform.position.x ? 1 : -1));
@@ -73,36 +73,33 @@ public class PlayerCharacter : CharacterBase
         healthUI.SetHealthUI(Health);
     }
 
-    protected override void Move()
+    public void CheckMove()
     {
         // Deadzone check for horizontal input
         if (inputHandler.MoveThresholdMet)
         {
-            Debug.Log("moving");
-            isActivelyMoving = true;
-            locomotion.HorizontalMovement(moveSpeed, inputHandler.MoveVector.x);
-
-            UpdateFacingDirection(inputHandler.MoveDirection);
-            animationHandler.SetWalkValue(1);
+            Move(inputHandler.MoveVector);
         }
-        else if (IsGrounded)
+        else if (IsGrounded && isActivelyMoving)
         {
             isActivelyMoving = false;
             animationHandler.SetWalkValue(0);
         }
     }
 
-    protected override void Jump()
+    public void CheckJump()
     {
         //check grounded
-        if (IsGrounded)
+        if (IsGrounded && inputHandler.JumpInput)
         {
-            if (inputHandler.JumpInput)
-            {
-                Debug.Log("Jump");
-                locomotion.SetVelocityY(jumpSpeed);
-            }
+            Jump();
         }
+    }
+
+    protected override void Jump()
+    {
+        Debug.Log("Jump");
+        locomotion.SetVelocityY(jumpSpeed);
     }
 
 }

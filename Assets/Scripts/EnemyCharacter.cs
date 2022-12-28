@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCharacter : CharacterBase
+public abstract class EnemyCharacter : CharacterBase
 {
-    [SerializeField] 
+    //public BasicEnemyBehaviour enemBe;
 
-    private void AI()
-    {
+    //public delegate void MoveDelegate(Vector2 _moveInput);
+    //public delegate void WalkOffDelegate();
 
-    }
+    protected abstract void AI();
 
     protected override void Start()
     {
         base.Start();
 
         Heal(1);
+
+        //enemBe.SetMoveDelegate(Move);
+
     }
 
     protected override void FixedUpdate()
@@ -30,9 +33,10 @@ public class EnemyCharacter : CharacterBase
         throw new System.NotImplementedException();
     }
 
-    protected override void Move()
+    protected void TurnOffWalking()
     {
-        throw new System.NotImplementedException();
+        isActivelyMoving = false;
+        animationHandler.SetWalkValue(0);
     }
 
 }

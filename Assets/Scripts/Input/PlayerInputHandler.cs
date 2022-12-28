@@ -12,7 +12,6 @@ public class PlayerInputHandler
 
     public bool MoveThresholdMet => (Mathf.Abs(MoveVector.x) > moveThreshhold ? true : false);
     public Vector2 MoveVector { get; private set; }
-    public CharacterFacingDirection MoveDirection => (MoveVector.x < 0 ? CharacterFacingDirection.left : CharacterFacingDirection.right);
     public bool JumpInput { get; private set; }
     
     public PlayerInputHandler(PlayerCharacter _player)

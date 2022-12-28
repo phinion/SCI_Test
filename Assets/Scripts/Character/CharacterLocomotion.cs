@@ -11,7 +11,6 @@ public class CharacterLocomotion
 
     public Vector2 CurrentVelocity { get; private set; }
 
-    
     public CharacterLocomotion(Rigidbody2D _rigidbody)
     {
         rigidbody = _rigidbody;

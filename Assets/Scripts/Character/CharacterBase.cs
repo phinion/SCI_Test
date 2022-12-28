@@ -74,9 +74,23 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
             currentFacingDirection = _newDirection;
         }
     }
+    protected CharacterFacingDirection GetDirectionFromInput(float _xValue) => (_xValue < 0 ? CharacterFacingDirection.left : CharacterFacingDirection.right);
+
+
 
     // Moves the character
-    protected abstract void Move();
+    protected virtual void Move(Vector2 _moveInput)
+    {
+        // check to only set once
+        if (!isActivelyMoving)
+        {
+            isActivelyMoving = true;
+        }
+        locomotion.HorizontalMovement(moveSpeed, _moveInput.x);
+
+        UpdateFacingDirection(GetDirectionFromInput(_moveInput.x));
+        animationHandler.SetWalkValue(1);
+    }
 
     // Allows the character to Jump
     protected abstract void Jump();
