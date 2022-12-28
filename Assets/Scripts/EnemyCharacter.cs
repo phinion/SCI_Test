@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public abstract class EnemyCharacter : CharacterBase
+public class EnemyCharacter : CharacterBase
 {
-    //public BasicEnemyBehaviour enemBe;
-
-    //public delegate void MoveDelegate(Vector2 _moveInput);
-    //public delegate void WalkOffDelegate();
-
-    protected abstract void AI();
+    public EnemyBehaviour enemBe;
+    public delegate void WalkOffDelegate();
 
     protected override void Start()
     {
@@ -17,15 +14,19 @@ public abstract class EnemyCharacter : CharacterBase
 
         Heal(1);
 
-        //enemBe.SetMoveDelegate(Move);
+        enemBe = ScriptableObject.Instantiate(enemBe);
+        enemBe.Setup(this);
 
+        enemBe.SetWalkOffDelegate(TurnOffWalking);
+
+        StartCoroutine(enemBe.GeneralAILoop());
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        AI();
+        enemBe.AIBehaviour();
     }
 
     protected override void Jump()

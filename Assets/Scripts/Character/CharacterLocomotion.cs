@@ -26,8 +26,20 @@ public class CharacterLocomotion
         // Clamping the velocity so it doesn't continue accelerating
 
         SetVelocityX(Mathf.Clamp(CurrentVelocity.x, -_moveSpeedModifier, _moveSpeedModifier));
-        //rigidbody.velocity = new Vector2(Mathf.Clamp(CurrentVelocity.x, -_moveSpeedModifier, _moveSpeedModifier), CurrentVelocity.y);
     }
+
+    public void AddForceX(float _moveSpeedModifier, float _xInput)
+    {
+        rigidbody.AddForce(new Vector2(_moveSpeedModifier * _xInput, 0));
+        SetVelocityX(Mathf.Clamp(CurrentVelocity.x, -_moveSpeedModifier, _moveSpeedModifier));
+    }
+
+    public void AddForceY(float _moveSpeedModifier, float _yInput)
+    {
+        rigidbody.AddForce(new Vector2(0, _moveSpeedModifier * _yInput));
+        SetVelocityY(Mathf.Clamp(CurrentVelocity.y, -_moveSpeedModifier, _moveSpeedModifier));
+    }
+
 
     public void SimulateDrag(float _moveSpeedModifier)
     {

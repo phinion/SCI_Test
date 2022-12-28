@@ -11,7 +11,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
     protected const float groundCheckRadius = 0.2f;
 
 
-    protected CharacterLocomotion locomotion;
+    public CharacterLocomotion locomotion;
     protected CharacterAnimationHandler animationHandler;
 
     protected bool isActivelyMoving = false;

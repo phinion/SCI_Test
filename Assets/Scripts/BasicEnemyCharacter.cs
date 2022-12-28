@@ -16,7 +16,7 @@ public class BasicEnemyCharacter : EnemyCharacter
         StartCoroutine(MoveTest());
     }
 
-    protected override void AI()
+    protected void AI()
     {
         if (nextDirection != Vector2.zero)
         {
