@@ -15,20 +15,20 @@ public class Parallax : MonoBehaviour
     public float parallaxEffect;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         startpos = transform.position.x;
         //length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         BackgroundMove();
         InfiniteBackgroundCheck();
     }
 
-    void BackgroundMove()
+    private void BackgroundMove()
     {
         float temp = (cam.transform.position.x * (1 - parallaxEffect));
         float _distance = (cam.transform.position.x * parallaxEffect);
@@ -45,7 +45,7 @@ public class Parallax : MonoBehaviour
         }
     }
 
-    void InfiniteBackgroundCheck()
+    private void InfiniteBackgroundCheck()
     {
         // If the camera has moved beyond the first background image, move it to the end of the second background image
         if (cam.transform.position.x > rightBackground.transform.position.x)
