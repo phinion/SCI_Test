@@ -75,7 +75,7 @@ public class PlayerCharacter : CharacterBase
         // Deadzone check for horizontal input
         if (inputHandler.MoveThresholdMet)
         {
-            Move(inputHandler.MoveVector);
+            Move();
         }
         else if (IsGrounded && isActivelyMoving)
         {
@@ -93,4 +93,21 @@ public class PlayerCharacter : CharacterBase
         }
     }
 
+    protected override void Move()
+    {
+        //check to only set once
+        if (!isActivelyMoving)
+        {
+            isActivelyMoving = true;
+        }
+        locomotion.HorizontalMovement(moveSpeed, inputHandler.MoveInput.x);
+
+        UpdateFacingDirection(GetDirectionFromInput(inputHandler.MoveInput.x));
+        animationHandler.SetWalkValue(1);
+    }
+
+    protected override void Jump()
+    {
+        locomotion.SetVelocityY(jumpSpeed);
+    }
 }

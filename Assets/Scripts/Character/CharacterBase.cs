@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class CharacterBase : MonoBehaviour, IHealth
 {
+   
     protected CharacterFacingDirection currentFacingDirection = CharacterFacingDirection.left;
 
 
@@ -17,12 +18,15 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
 
     protected bool isActivelyMoving = false;
 
+
+    [Header("Base Character Info")]
     public float moveSpeed = 10f;
     public float jumpSpeed = 15f;
 
     public int startingHealth = 1;
 
     public bool IsGrounded { get; private set; }
+    public bool IsFacingWall { get; private set; }
     public int Health { get; private set; }
 
     private void OnDrawGizmos()
@@ -69,6 +73,14 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
         //return Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - 0.5f), 0.2f, LayerMask.GetMask("Ground"));
     }
 
+    protected bool CheckIfCollideWithTerrain()
+    {
+        float xOffset = sideOffset * (currentFacingDirection == CharacterFacingDirection.left ? -1 : 1);
+
+        return Physics2D.OverlapCircle(new Vector2(transform.position.x + xOffset, transform.position.y), sideCheckRadius, LayerMask.GetMask("Ground"));
+
+    }
+
     protected void UpdateFacingDirection(CharacterFacingDirection _newDirection)
     {
         if (currentFacingDirection != _newDirection)
@@ -82,18 +94,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
 
 
     // Moves the character
-    protected virtual void Move(Vector2 _moveInput)
-    {
-        // check to only set once
-        if (!isActivelyMoving)
-        {
-            isActivelyMoving = true;
-        }
-        locomotion.HorizontalMovement(moveSpeed, _moveInput.x);
-
-        UpdateFacingDirection(GetDirectionFromInput(_moveInput.x));
-        animationHandler.SetWalkValue(1);
-    }
+    protected abstract void Move();
 
     // Allows the character to Jump
     protected virtual void Jump()
