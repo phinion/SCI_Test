@@ -33,16 +33,16 @@ public class BasicEnemyCharacter : EnemyCharacter
     {
         while (true)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(travelTime);
             nextDirection = Vector2.right;
             Debug.Log("Right");
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(waitTime);
             nextDirection = Vector2.zero;
             Debug.Log("Wait");
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(travelTime);
             nextDirection = Vector2.left;
             Debug.Log("Left");
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(waitTime);
             nextDirection = Vector2.zero;
             Debug.Log("Wait");
         }

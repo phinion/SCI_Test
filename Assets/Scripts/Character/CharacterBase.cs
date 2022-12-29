@@ -70,7 +70,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
     {
         if (currentFacingDirection != _newDirection)
         {
-            transform.Rotate(0.0f, 180.0f, 0.0f);
+            transform.localScale = new Vector3(-gameObject.transform.localScale.x, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
             currentFacingDirection = _newDirection;
         }
     }
