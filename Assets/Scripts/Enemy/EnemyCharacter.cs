@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class EnemyCharacter : CharacterBase
 {
-    //public BasicEnemyBehaviour enemBe;
+    //public EnemyBehaviour enemyBehaviour;
 
     //public delegate void MoveDelegate(Vector2 _moveInput);
     //public delegate void WalkOffDelegate();
-    public enum Enemy { Basic, Rage, Dropper};
-    
+    public enum Enemy { Basic, Rage, Dropper };
+
     [Header("EnemyCharacter")]
     public Enemy type;
-    
+
     // basic
     protected Vector2 nextDirection = Vector2.zero;
 
-// rage
+    // rage
     [SerializeField] private float randomJumpChance = 0.05f;
     private bool enraged = false;
 
@@ -28,8 +28,31 @@ public class EnemyCharacter : CharacterBase
 
     [SerializeField] private float gravityScale = 5f;
     //[SerializeField] private float pounceRandomChance = 0.3f;
+    protected override void Start()
+    {
+        base.Start();
+        //enemBe.SetMoveDelegate(Move);
 
+        switch (type)
+        {
+            case Enemy.Dropper:
+                locomotion.Rigidbody().simulated = false;
+                startingYPos = transform.position.y;
+                break;
+            //rage shares this with basic
+            default:
+                nextDirection = Random.Range(0, 2) == 1 ? Vector2.left : Vector2.right;
+                break;
+        }
 
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        AI();
+    }
     protected void AI()
     {
         switch (type)
@@ -102,6 +125,8 @@ public class EnemyCharacter : CharacterBase
 
     }
 
+
+
     void DropperFallReset()
     {
         if (transform.position.y < startingYPos)
@@ -117,31 +142,7 @@ public class EnemyCharacter : CharacterBase
         }
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        //enemBe.SetMoveDelegate(Move);
 
-        switch (type)
-        {
-            case Enemy.Dropper:
-                locomotion.Rigidbody().simulated = false;
-                startingYPos = transform.position.y;
-                break;
-                //rage shares this with basic
-            default:
-                nextDirection = Random.Range(0, 2) == 1 ? Vector2.left : Vector2.right;
-                break;
-        }
-
-    }
-
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-        AI();
-    }
 
     protected void TurnOffWalking()
     {

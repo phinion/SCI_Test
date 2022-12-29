@@ -3,8 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyBehaviour", menuName = "ScriptableObjects/EnemyBehaviour/BasicEnemy")]
-public class EnemyBehaviour : ScriptableObject
+public abstract class EnemyBehaviour : ScriptableObject
 {
+    private EnemyCharacter enemy;
+
+    public void SetupBehaviour(EnemyCharacter _enemy)
+    {
+        enemy = _enemy;
+    }
+
+    public abstract void AI();
+
+    public abstract void Start();
+
+    public abstract void Move();
+
+    public abstract void Jump();
+
+    public abstract void TakeDamage();
+
     //public void AI()
 
 
