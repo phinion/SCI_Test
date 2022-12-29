@@ -17,8 +17,6 @@ public class PlayerCharacter : CharacterBase
         base.Start();
 
         inputHandler = new PlayerInputHandler(this);
-
-        Heal(3);
     }
 
     private void OnDisable()
@@ -94,12 +92,6 @@ public class PlayerCharacter : CharacterBase
         {
             Jump();
         }
-    }
-
-    protected override void Jump()
-    {
-        Debug.Log("Jump");
-        locomotion.SetVelocityY(jumpSpeed);
     }
 
 }

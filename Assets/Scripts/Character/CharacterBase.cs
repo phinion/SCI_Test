@@ -4,12 +4,13 @@ using UnityEngine;
 
 public abstract class CharacterBase : MonoBehaviour, IHealth
 {
-    private CharacterFacingDirection currentFacingDirection = CharacterFacingDirection.left;
+    protected CharacterFacingDirection currentFacingDirection = CharacterFacingDirection.left;
 
 
     protected const float feetYOffset = -0.5f;
+    protected const float sideOffset = 0.5f;
     protected const float groundCheckRadius = 0.2f;
-
+    protected const float sideCheckRadius = 0.2f;
 
     protected CharacterLocomotion locomotion;
     protected CharacterAnimationHandler animationHandler;
@@ -18,6 +19,8 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
 
     public float moveSpeed = 10f;
     public float jumpSpeed = 15f;
+
+    public int startingHealth = 1;
 
     public bool IsGrounded { get; private set; }
     public int Health { get; private set; }
@@ -37,7 +40,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
         Animator animator = GetComponent<Animator>();
         animationHandler = new CharacterAnimationHandler(animator);
 
-        Health = 0;
+        Heal(startingHealth);
     }
     protected virtual void Update()
     {
@@ -93,7 +96,10 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
     }
 
     // Allows the character to Jump
-    protected abstract void Jump();
+    protected virtual void Jump()
+    {
+        locomotion.SetVelocityY(jumpSpeed);
+    }
 
     public virtual void TakeDamage(int amount)
     {
@@ -121,7 +127,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
 
     IEnumerator WaitBeforeDie()
     {
-        GetComponent<Rigidbody2D>().simulated = false;
+        locomotion.Rigidbody().simulated = false;
         GetComponent<BoxCollider2D>().enabled = false;
 
         yield return new WaitForSeconds(1.5f);

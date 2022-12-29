@@ -16,6 +16,8 @@ public class CharacterLocomotion
         rigidbody = _rigidbody;
     }
 
+    public Rigidbody2D Rigidbody() => rigidbody;
+
     #region Set Functions
 
     public void HorizontalMovement(float _moveSpeedModifier, float _xInput)

@@ -14,9 +14,6 @@ public abstract class EnemyCharacter : CharacterBase
     protected override void Start()
     {
         base.Start();
-
-        Heal(1);
-
         //enemBe.SetMoveDelegate(Move);
 
     }
@@ -26,11 +23,6 @@ public abstract class EnemyCharacter : CharacterBase
         base.FixedUpdate();
 
         AI();
-    }
-
-    protected override void Jump()
-    {
-        throw new System.NotImplementedException();
     }
 
     protected void TurnOffWalking()
