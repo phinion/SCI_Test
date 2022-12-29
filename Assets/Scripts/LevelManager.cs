@@ -6,33 +6,17 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
 
-    //[SerializeField] private List<Star> starList = new List<Star>();
+    public static int levelScore { get; private set; }
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        Instance = this;
+        ResetData();
+    }
+    public static void ResetData()
+    {
+        levelScore = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void CheckWinStatus()
-    {
-        //check if coin count = list count
-    }
-
-    public void RestartLevel()
-    {
-
-    }
-
-    public void ToLevelSelect()
-    {
-
-    }
+    public static void AddScore(int _score) => levelScore += _score;
 }

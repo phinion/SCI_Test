@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour, ICollectable
 {
+    public int scoreValue = 100;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -15,9 +17,7 @@ public class Coin : MonoBehaviour, ICollectable
     public void Collect()
     {
         Debug.Log("Coin Collected");
-        LevelData.coinsCollected++;
-        LevelManager.Instance.CheckWinStatus();
-
-        GameObject.Destroy(this);
+        LevelManager.AddScore(scoreValue);
+        GameObject.Destroy(this.gameObject);
     }
 }
