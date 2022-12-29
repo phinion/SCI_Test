@@ -8011,9 +8011,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 702020626515478340, guid: 0ad45fc116c5277468813e4217dd2b78, type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 702020626515478340, guid: 0ad45fc116c5277468813e4217dd2b78, type: 3}
+      propertyPath: audioData
+      value: 
+      objectReference: {fileID: 11400000, guid: 620076e76f8078845af1afa03b753fdd, type: 2}
     - target: {fileID: 702020626515478343, guid: 0ad45fc116c5277468813e4217dd2b78, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 702020626515478343, guid: 0ad45fc116c5277468813e4217dd2b78, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8165,6 +8173,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1546640242}
     - target: {fileID: 5542836628303425763, guid: 7459bdc7afbe7454cbd95a63fb12ff7c, type: 3}
+      propertyPath: audioData
+      value: 
+      objectReference: {fileID: 11400000, guid: 76cedcf23530aab469c0dc80ae3b9110, type: 2}
+    - target: {fileID: 5542836628303425763, guid: 7459bdc7afbe7454cbd95a63fb12ff7c, type: 3}
       propertyPath: jumpSpeed
       value: 15
       objectReference: {fileID: 0}
@@ -8310,6 +8322,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 362883996651673063, guid: e57c67873163a7b4c91fa1a595c4c29e, type: 3}
+      propertyPath: audioData
+      value: 
+      objectReference: {fileID: 11400000, guid: 63c32eac2eb01f746a64ab358a2f5ff7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e57c67873163a7b4c91fa1a595c4c29e, type: 3}
 --- !u!1001 &6084187087328879446
@@ -8323,9 +8339,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: RageEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6084187087155525626, guid: 2767115c7150839428ce547f0f6d7b37, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084187087155525626, guid: 2767115c7150839428ce547f0f6d7b37, type: 3}
+      propertyPath: audioData
+      value: 
+      objectReference: {fileID: 11400000, guid: 63c32eac2eb01f746a64ab358a2f5ff7, type: 2}
     - target: {fileID: 6084187087155525627, guid: 2767115c7150839428ce547f0f6d7b37, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6084187087155525627, guid: 2767115c7150839428ce547f0f6d7b37, type: 3}
       propertyPath: m_LocalPosition.x

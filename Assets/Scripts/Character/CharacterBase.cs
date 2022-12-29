@@ -14,6 +14,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
 
     protected CharacterLocomotion locomotion;
     protected CharacterAnimationHandler animationHandler;
+    protected CharacterAudioHandler audioHandler;
     protected AudioSource audioSource;
 
     protected bool isActivelyMoving = false;
@@ -47,6 +48,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
         animationHandler = new CharacterAnimationHandler(animator);
 
         audioSource = GetComponent<AudioSource>();
+        audioHandler = new CharacterAudioHandler(audioSource);
 
         Heal(startingHealth);
     }
@@ -111,6 +113,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
         Health -= amount;
 
         animationHandler.SetHurtTrigger();
+        audioHandler.PlaySFX(audioData?.takeDamageAudio);
 
         Debug.Log(gameObject.name + " says ouch");
 
@@ -126,6 +129,8 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
     public void Die()
     {
         //
+        SFXHandler.Instance.PlaySFX(audioData?.dieAudio);
+
         Debug.Log(gameObject.name + " says Ach >.<");
         Destroy(this.gameObject);
     }

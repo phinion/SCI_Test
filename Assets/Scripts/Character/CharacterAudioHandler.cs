@@ -11,17 +11,9 @@ public class CharacterAudioHandler
         audioSource = _audioSource;
     }
 
-    
-
-    // Start is called before the first frame update
-    void Start()
+    public void PlaySFX(AudioClip _clip)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        audioSource.clip = _clip;
+        audioSource.Play();
     }
 }

@@ -89,6 +89,7 @@ public class PlayerCharacter : CharacterBase
         //check grounded
         if (IsGrounded && inputHandler.JumpInput)
         {
+            audioHandler.PlaySFX(audioData?.jumpAudio);
             Jump();
         }
     }
