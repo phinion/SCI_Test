@@ -542,7 +542,7 @@ Animator:
   m_GameObject: {fileID: 1001247911}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 804d5954dcaa9b14c96154fd806c44c5, type: 2}
+  m_Controller: {fileID: 22100000, guid: 82b11ac0eacf59943b515fe9aaa5816c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -7574,7 +7574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  jumpSpeed: 15
+  jumpSpeed: 3
   startingHealth: 1
   gravityScale: 5
   pounceRandomChance: 0.3
