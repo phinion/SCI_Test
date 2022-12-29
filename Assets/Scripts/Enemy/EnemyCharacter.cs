@@ -13,13 +13,16 @@ public class EnemyCharacter : CharacterBase
     [Header("EnemyCharacter")]
     public Enemy type;
 
+    [Header("Basic variables")]
     // basic
     protected Vector2 nextDirection = Vector2.zero;
 
+    [Header("Rage variables")]
     // rage
     [SerializeField] private float randomJumpChance = 0.05f;
     private bool enraged = false;
 
+    [Header("Dropper variables")]
     //dropper
     private bool waitingToDrop = true;
     private bool dropComplete = false;
