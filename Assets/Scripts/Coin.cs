@@ -6,6 +6,8 @@ public class Coin : MonoBehaviour, ICollectable
 {
     public int scoreValue = 100;
 
+    [SerializeField] private AudioClip collectSFX;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -18,6 +20,8 @@ public class Coin : MonoBehaviour, ICollectable
     {
         Debug.Log("Coin Collected");
         LevelManager.AddScore(scoreValue);
+        SFXHandler.Instance.PlaySFX(collectSFX);
+        
         GameObject.Destroy(this.gameObject);
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class CharacterBase : MonoBehaviour, IHealth
 {
-   
     protected CharacterFacingDirection currentFacingDirection = CharacterFacingDirection.left;
 
 
@@ -15,11 +14,14 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
 
     protected CharacterLocomotion locomotion;
     protected CharacterAnimationHandler animationHandler;
+    protected AudioSource audioSource;
 
     protected bool isActivelyMoving = false;
 
 
     [Header("Base Character Info")]
+    [SerializeField] protected CharacterAudioData audioData;
+
     public float moveSpeed = 10f;
     public float jumpSpeed = 15f;
 
@@ -43,6 +45,8 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
 
         Animator animator = GetComponent<Animator>();
         animationHandler = new CharacterAnimationHandler(animator);
+
+        audioSource = GetComponent<AudioSource>();
 
         Heal(startingHealth);
     }
