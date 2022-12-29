@@ -56,7 +56,6 @@ public class PlayerCharacter : CharacterBase
 
         }
     }
-
     #endregion
 
     public override void TakeDamage(int amount)
