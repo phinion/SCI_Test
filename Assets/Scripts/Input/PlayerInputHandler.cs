@@ -36,7 +36,6 @@ public class PlayerInputHandler
         }
 
         playerControls.Enable();
-        Debug.Log("Input Setup");
     }
 
 
