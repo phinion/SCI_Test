@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 6402786830985206851}
   correctSFX: {fileID: 8300000, guid: f37c2bb67db1d114eaec96664cd3979b, type: 3}
+  incorrectSFX: {fileID: 8300000, guid: fbaafff2025ed284f97255b00c13e78c, type: 3}
 --- !u!82 &6402786830985206851
 AudioSource:
   m_ObjectHideFlags: 0
