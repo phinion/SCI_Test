@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
         if (player != null) {
             if (player.position.x > leftMostX && player.position.x < rightMostX)
             {
-                transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
+                transform.position = new Vector3(Mathf.Clamp(player.position.x, leftMostX, rightMostX), transform.position.y, transform.position.z);
             }
         }
     }

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerCharacter : CharacterBase
+public class PlayerCharacter : CharacterBase, IHealth
 {
     PlayerInputHandler inputHandler;
 
     public delegate void onHealthChanged(int _currentHealth);
     public onHealthChanged OnHealthChangedCallback;
+
+    public delegate void onDead();
+    public onDead OnDeadPlayerCallback;
 
     #region UnityCallbackFunctions
 
@@ -25,6 +28,7 @@ public class PlayerCharacter : CharacterBase
         inputHandler?.Disable();
 
         OnHealthChangedCallback = null;
+        OnDeadPlayerCallback = null;
     }
 
     // Update is called once per frame
@@ -73,6 +77,13 @@ public class PlayerCharacter : CharacterBase
         OnHealthChangedCallback?.Invoke(Health);
     }
 
+    public override void Die()
+    {
+        OnDeadPlayerCallback?.Invoke();
+
+        base.Die();
+    }
+
     public void CheckMove()
     {
         // Deadzone check for horizontal input
@@ -114,4 +125,5 @@ public class PlayerCharacter : CharacterBase
     {
         locomotion.SetVelocityY(jumpSpeed);
     }
+
 }

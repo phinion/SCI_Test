@@ -21,12 +21,20 @@ public class LockedGate : MonoBehaviour
             {
                 OpenGate();
             }
+            else
+            {
+                SFXHandler.Instance.PlayInCorrectSFX();
+            }
         }
         else if (requiredCollectable == "Gem")
         {
             if (GameData.GemsCollected > 0)
             {
                 OpenGate();
+            }
+            else
+            {
+                SFXHandler.Instance.PlayInCorrectSFX();
             }
         }
     }

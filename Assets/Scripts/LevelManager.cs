@@ -39,8 +39,6 @@ public class LevelManager : MonoBehaviour
 
             pipesInLevel.AddRange(GameObject.FindGameObjectsWithTag("Pipe"));
 
-            Debug.Log("finding output pipe");
-
             Pipe nextPipe;
             foreach (GameObject g in pipesInLevel)
             {
@@ -49,7 +47,6 @@ public class LevelManager : MonoBehaviour
                 if (nextPipe.GetConnectedToPipeID == GameData.NextPipeID)
                 {
                     player.transform.position = nextPipe.GetEntryPointPosition;
-                    Debug.Log("pipe: " + GameData.NextPipeID);
                     break;
                 }
             }

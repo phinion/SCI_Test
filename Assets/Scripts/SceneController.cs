@@ -29,4 +29,13 @@ public class SceneController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void RestartFromPauseMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+    }
+
+    public void QuitFromPauseMenu()
+    {
+        Application.Quit();
+    }
 }

@@ -126,7 +126,7 @@ public abstract class CharacterBase : MonoBehaviour, IHealth
         Health += amount;
     }
 
-    public void Die()
+    public virtual void Die()
     {
         //
         SFXHandler.Instance.PlaySFX(audioData?.dieAudio);

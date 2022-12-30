@@ -9,6 +9,7 @@ public class SFXHandler : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     [SerializeField] private AudioClip correctSFX;
+    [SerializeField] private AudioClip incorrectSFX;
 
     // Start is called before the first frame update
     private void Awake()
@@ -34,4 +35,6 @@ public class SFXHandler : MonoBehaviour
     }
 
     public void PlayCorrectSFX() => PlaySFX(correctSFX);
+
+    public void PlayInCorrectSFX() => PlaySFX(incorrectSFX);
 }
