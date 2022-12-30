@@ -10,8 +10,15 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        ResetData();
+        if (Instance == null)
+        {
+            Instance = this;
+            ResetData();
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
     public static void ResetData()
     {

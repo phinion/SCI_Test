@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Pipe : MonoBehaviour
 {
+    [SerializeField] private int pipeID = -1;
+
+
     public string sceneName = "";
     [SerializeField] private AudioClip audioClip;
+
+    public Vector3 getEntryPointPosition => transform.GetChild(0).position;
+    
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
