@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c85151cf34f7342a787d332b932b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: testScene
+  sceneName: 
   audioClip: {fileID: 8300000, guid: 6a7a180e4d35daf40b9faa7b5c65baaf, type: 3}
 --- !u!212 &4102997225590600056
 SpriteRenderer:

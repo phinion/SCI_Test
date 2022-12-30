@@ -19,11 +19,11 @@ MonoBehaviour:
   - m_OriginalSprite: {fileID: -6468341902652231549, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
     m_OverrideSprite: {fileID: 8012677903426701907, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
   - m_OriginalSprite: {fileID: -5099891286554169108, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
-    m_OverrideSprite: {fileID: -3452664018028135181, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
+    m_OverrideSprite: {fileID: 1161618301327373649, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
   - m_OriginalSprite: {fileID: 6757897804379243199, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
     m_OverrideSprite: {fileID: -7781659508116617079, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
   - m_OriginalSprite: {fileID: 6768717979492401898, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
-    m_OverrideSprite: {fileID: 2032021735281516063, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
+    m_OverrideSprite: {fileID: 8075902851256106815, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
   - m_OriginalSprite: {fileID: -1016387791610636912, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
     m_OverrideSprite: {fileID: -7843938798037369319, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
   - m_OriginalSprite: {fileID: -1464467535388251667, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
@@ -67,7 +67,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 1
     m_Sprites:
-    - {fileID: -3452664018028135181, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
+    - {fileID: 1161618301327373649, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 6
     m_Sprites:
-    - {fileID: 2032021735281516063, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
+    - {fileID: 8075902851256106815, guid: d19a24397ab6fae4f91adbbf89dd0012, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
