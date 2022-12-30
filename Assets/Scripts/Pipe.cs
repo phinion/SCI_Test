@@ -25,9 +25,11 @@ public class Pipe : MonoBehaviour
         {
             SFXHandler.Instance.PlaySFX(audioClip);
             GameData.SetNextPipeID(connectedToPipeID);
-            Debug.Log("Pipe setting next pipeID: " + connectedToPipeID);
-            Debug.Log("GameData says pipeID is: " + GameData.NextPipeID);
             SceneController.Instance.LoadScene(sceneName);
+        }
+        else
+        {
+            Debug.Log("PIPE:: ONCOLLISIONENTER:: Failed to move scene");
         }
     }
 }
