@@ -10,6 +10,14 @@ public class HealthUI : MonoBehaviour
     public Sprite fullHealthSprite;
     public Sprite emptyHealthSprite;
 
+    private void Start()
+    {
+        PlayerCharacter player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
+        player.OnHealthChangedCallback += SetHealthUI;
+
+        SetHealthUI(player.Health);
+    }
+
     public void SetHealthUI(int _currentHealth)
     {
         for(int i = 0; i < healthIcons.Count; i++)

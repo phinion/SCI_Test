@@ -7,7 +7,8 @@ public class PlayerCharacter : CharacterBase
 {
     PlayerInputHandler inputHandler;
 
-    public HealthUI healthUI;
+    public delegate void onHealthChanged(int _currentHealth);
+    public onHealthChanged OnHealthChangedCallback;
 
     #region UnityCallbackFunctions
 
@@ -21,7 +22,9 @@ public class PlayerCharacter : CharacterBase
 
     private void OnDisable()
     {
-        inputHandler.Disable();
+        inputHandler?.Disable();
+
+        OnHealthChangedCallback = null;
     }
 
     // Update is called once per frame
@@ -61,13 +64,13 @@ public class PlayerCharacter : CharacterBase
     public override void TakeDamage(int amount)
     {
         base.TakeDamage(amount);
-        healthUI.SetHealthUI(Health);
+        OnHealthChangedCallback?.Invoke(Health);
     }
 
     public override void Heal(int amount)
     {
         base.Heal(amount);
-        healthUI.SetHealthUI(Health);
+        OnHealthChangedCallback?.Invoke(Health);
     }
 
     public void CheckMove()
