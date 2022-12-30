@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f99737860779a14ea87e1fcb5a860af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioData: {fileID: 0}
+  audioData: {fileID: 11400000, guid: 620076e76f8078845af1afa03b753fdd, type: 2}
   moveSpeed: 3
   jumpSpeed: 3
   startingHealth: 1
-  type: 0
+  type: 2
   randomJumpChance: 0.05
   gravityScale: 5
 --- !u!212 &702020626515478341

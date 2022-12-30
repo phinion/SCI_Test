@@ -24,4 +24,9 @@ public class SceneController : MonoBehaviour
     {
         SceneManager.LoadScene(_sceneName);
     }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
