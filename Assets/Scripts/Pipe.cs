@@ -8,9 +8,13 @@ public class Pipe : MonoBehaviour
 
 
     public string sceneName = "";
+    [SerializeField] private int connectedToPipeID = -1;
+
     [SerializeField] private AudioClip audioClip;
 
-    public Vector3 getEntryPointPosition => transform.GetChild(0).position;
+    public Vector3 GetEntryPointPosition => transform.GetChild(0).position;
+
+    public int GetConnectedToPipeID => pipeID;
     
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -20,6 +24,9 @@ public class Pipe : MonoBehaviour
         if (objCollidedWith != null && sceneName != "")
         {
             SFXHandler.Instance.PlaySFX(audioClip);
+            GameData.SetNextPipeID(connectedToPipeID);
+            Debug.Log("Pipe setting next pipeID: " + connectedToPipeID);
+            Debug.Log("GameData says pipeID is: " + GameData.NextPipeID);
             SceneController.Instance.LoadScene(sceneName);
         }
     }

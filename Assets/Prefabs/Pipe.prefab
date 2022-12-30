@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4102997225590600057}
   m_Layer: 0
   m_Name: Pipe
-  m_TagString: Untagged
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c85151cf34f7342a787d332b932b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pipeID: -1
   sceneName: 
+  connectedToPipeID: -1
   audioClip: {fileID: 8300000, guid: 6a7a180e4d35daf40b9faa7b5c65baaf, type: 3}
 --- !u!212 &4102997225590600056
 SpriteRenderer:

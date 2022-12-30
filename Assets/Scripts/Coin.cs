@@ -18,7 +18,6 @@ public class Coin : MonoBehaviour, ICollectable
 
     public void Collect()
     {
-        Debug.Log("Coin Collected");
         GameData.AddCoin();
         LevelManager.AddScore(scoreValue);
         SFXHandler.Instance.PlaySFX(collectSFX);

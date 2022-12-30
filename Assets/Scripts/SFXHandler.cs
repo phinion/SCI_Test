@@ -20,7 +20,7 @@ public class SFXHandler : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            GameObject.Destroy(this.gameObject);
         }
     }
 

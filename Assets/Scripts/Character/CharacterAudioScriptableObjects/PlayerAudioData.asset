@@ -15,5 +15,5 @@ MonoBehaviour:
   moveAudio: {fileID: 0}
   jumpAudio: {fileID: 8300000, guid: 253b659e0f57e5a4da5772e2fc1d9572, type: 3}
   takeDamageAudio: {fileID: 8300000, guid: a572412922b37754895cee162db8cf36, type: 3}
-  dieAudio: {fileID: 8300000, guid: 732a94f9f5fe5694a991a5fe6087eb18, type: 3}
+  dieAudio: {fileID: 8300000, guid: 2694b271ec5266746826252fece69600, type: 3}
   healAudio: {fileID: 0}

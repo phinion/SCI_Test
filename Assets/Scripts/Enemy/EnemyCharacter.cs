@@ -193,7 +193,7 @@ public class EnemyCharacter : CharacterBase
         nextDirection = Random.Range(0, 2) == 1 ? Vector2.left : Vector2.right;
         enraged = true;
         moveSpeed *= 2;
-        GetComponent<SpriteRenderer>().color = Color.red;
+        GetComponent<SpriteRenderer>().material.color = Color.red;
     }
 
     private bool CheckIfPlayerisUnderneath()

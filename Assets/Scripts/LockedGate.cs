@@ -13,7 +13,7 @@ public class LockedGate : MonoBehaviour
     {
         PlayerCharacter objCollidedWith = collision.gameObject.GetComponent<PlayerCharacter>();
 
-        if (GameData.keysCollected > 0)
+        if (GameData.KeysCollected > 0)
         {
             OpenGate();
         }

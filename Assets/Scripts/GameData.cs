@@ -4,33 +4,35 @@ using UnityEngine;
 
 public static class GameData
 {
-    public static int coinsCollected { get; private set; }
-    public static int keysCollected { get; private set; }
-    public static int gemsCollected { get; private set; }
+    public static int CoinsCollected { get; private set; }
+    public static int KeysCollected { get; private set; }
+    public static int GemsCollected { get; private set; }
+
+    public static int NextPipeID { get; private set;}
 
     public static void ResetData()
     {
-        coinsCollected = 0;
-        keysCollected = 0;
-        gemsCollected = 0;
+        CoinsCollected = 0;
+        KeysCollected = 0;
+        GemsCollected = 0;
     }
 
     public static void AddCoin()
     {
-        coinsCollected++;
-        if(coinsCollected >= 10)
+        CoinsCollected++;
+        if(CoinsCollected >= 10)
         {
-            coinsCollected -= 10;
+            CoinsCollected -= 10;
             AddKey();
-            Debug.Log("KeyAdded");
             SFXHandler.Instance.PlayCorrectSFX();
-            Debug.Log("KeyAdded2");
         }
     }
 
-    public static void AddKey() => keysCollected++;
-    public static void UseKey() => keysCollected--;
+    public static void AddKey() => KeysCollected++;
+    public static void UseKey() => KeysCollected--;
 
-    public static void AddGem() => gemsCollected++;
-    public static void LoseGem() => gemsCollected--;
+    public static void AddGem() => GemsCollected++;
+    public static void LoseGem() => GemsCollected--;
+
+    public static void SetNextPipeID(int _nextPipeID) => NextPipeID = _nextPipeID;
 }
