@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour, ICollectable
+//Redundant class. Coin can be expanded to occupy multiple types. Rename Coin to collectable
+public class Gem : MonoBehaviour, ICollectable
 {
-    public int scoreValue = 100;
+    // Collectable value, score currently not used
+    public int scoreValue = 500;
 
+    // Audio clip that will play when coin collected
     [SerializeField] private AudioClip collectSFX;
 
+    // Ontrigger to collect
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -16,9 +20,10 @@ public class Coin : MonoBehaviour, ICollectable
         }
     }
 
+    // Collect function
     public void Collect()
     {
-        GameData.AddCoin();
+        GameData.AddGem();
         LevelManager.AddScore(scoreValue);
         SFXHandler.Instance.PlaySFX(collectSFX);
         

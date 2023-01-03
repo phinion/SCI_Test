@@ -6802,6 +6802,10 @@ PrefabInstance:
       propertyPath: connectedToPipeID
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4102997225590600039, guid: ddce1ece305338f479232ba31a18ca9e, type: 3}
+      propertyPath: sceneNameOfConnectedPipe
+      value: LevelSelect
+      objectReference: {fileID: 0}
     - target: {fileID: 4102997225590600058, guid: ddce1ece305338f479232ba31a18ca9e, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -7273,6 +7277,10 @@ PrefabInstance:
     - target: {fileID: 4102997225590600039, guid: ddce1ece305338f479232ba31a18ca9e, type: 3}
       propertyPath: connectedToPipeID
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102997225590600039, guid: ddce1ece305338f479232ba31a18ca9e, type: 3}
+      propertyPath: sceneNameOfConnectedPipe
+      value: LevelSelect
       objectReference: {fileID: 0}
     - target: {fileID: 4102997225590600058, guid: ddce1ece305338f479232ba31a18ca9e, type: 3}
       propertyPath: m_RootOrder

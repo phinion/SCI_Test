@@ -5,20 +5,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacter : CharacterBase, IHealth
 {
-    PlayerInputHandler inputHandler;
+    // Class that stored player input data
+    private PlayerInputHandler inputHandler;
 
+    // Event called when player health value is adjusted. Used for UI 
     public delegate void onHealthChanged(int _currentHealth);
     public onHealthChanged OnHealthChangedCallback;
 
+    // Event called when player character dies. Used mainly to display failure screen
     public delegate void onDead();
     public onDead OnDeadPlayerCallback;
 
     #region UnityCallbackFunctions
 
-    // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         inputHandler = new PlayerInputHandler(this);
     }
@@ -47,7 +49,7 @@ public class PlayerCharacter : CharacterBase, IHealth
         if (objCollidedWith != null)
         {
             //check if above enemy to deal damage
-            if (transform.position.y + feetYOffset > objCollidedWith.transform.position.y)
+            if (transform.position.y + c_feetYOffset > objCollidedWith.transform.position.y)
             {
                 objCollidedWith.TakeDamage(1);
                 locomotion.SetVelocityY(jumpSpeed);
@@ -65,6 +67,8 @@ public class PlayerCharacter : CharacterBase, IHealth
     }
     #endregion
 
+    // Difference between IHealth in player and enemy is that playercharacter, in addition to taking damage, must reflect changes in UI
+    #region IHealth override functions
     public override void TakeDamage(int amount)
     {
         base.TakeDamage(amount);
@@ -83,7 +87,10 @@ public class PlayerCharacter : CharacterBase, IHealth
 
         base.Die();
     }
+    #endregion
 
+    #region Checks
+    // Move check function
     public void CheckMove()
     {
         // Deadzone check for horizontal input
@@ -98,6 +105,7 @@ public class PlayerCharacter : CharacterBase, IHealth
         }
     }
 
+    // Jump check function
     public void CheckJump()
     {
         //check grounded
@@ -107,7 +115,9 @@ public class PlayerCharacter : CharacterBase, IHealth
             Jump();
         }
     }
+    #endregion
 
+    #region CharacterBase Movement override functions
     protected override void Move()
     {
         //check to only set once
@@ -125,5 +135,6 @@ public class PlayerCharacter : CharacterBase, IHealth
     {
         locomotion.SetVelocityY(jumpSpeed);
     }
+    #endregion
 
 }

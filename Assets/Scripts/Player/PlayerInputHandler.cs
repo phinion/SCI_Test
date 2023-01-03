@@ -5,15 +5,20 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputHandler
 {
+    #region Skeleton scripts
     private PlayerCharacter player;
     private PlayerControls playerControls;
+    #endregion
 
-    private const float moveThreshhold = 0.2f;
+    #region variables
+    private const float c_moveThreshhold = 0.2f;
 
-    public bool MoveThresholdMet => (Mathf.Abs(MoveInput.x) > moveThreshhold ? true : false);
+    public bool MoveThresholdMet => (Mathf.Abs(MoveInput.x) > c_moveThreshhold ? true : false);
     public Vector2 MoveInput { get; private set; }
     public bool JumpInput { get; private set; }
-    
+    #endregion
+
+    // Constructor
     public PlayerInputHandler(PlayerCharacter _player)
     {
         player = _player;
@@ -21,6 +26,7 @@ public class PlayerInputHandler
         SetupInputs();
     }
 
+    // Setup inputs
     public void SetupInputs()
     {
 
@@ -38,8 +44,7 @@ public class PlayerInputHandler
         playerControls.Enable();
     }
 
-
-
+    // Disable inputs
     public void Disable()
     {
         playerControls.Disable();

@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+// Locked gate class. Requires condition to be met to destroy gate
 public class LockedGate : MonoBehaviour
 {
+    // Audio clip played when gate unlocked
     [SerializeField] private AudioClip audioClip;
 
     //[SerializeField] UnityAction OnGateOpenedCallback;
 
+    // Collectable type required to open gate
     public string requiredCollectable = "Key";
 
+    // Collision function to check if gate can be opened
     private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerCharacter objCollidedWith = collision.gameObject.GetComponent<PlayerCharacter>();
@@ -39,6 +43,7 @@ public class LockedGate : MonoBehaviour
         }
     }
 
+    // Open gate function
     private void OpenGate()
     {
         if (requiredCollectable == "Key")

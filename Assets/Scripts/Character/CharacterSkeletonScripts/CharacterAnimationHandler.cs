@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class CharacterAnimationHandler
 {
+    // animator reference
     private Animator animator;
 
+    // constructor to setup this script
     public CharacterAnimationHandler(Animator _animator)
     {
         animator = _animator;
     }
 
+    #region Getters
     public bool GetInAirBool => animator.GetBool("InAir");
     public float GetWalkValue => animator.GetFloat("Walk");
+    #endregion
+
+    #region Setters
 
     public void SetHurtTrigger()
     {
@@ -31,4 +37,5 @@ public class CharacterAnimationHandler
             animator.SetFloat("Walk", _value);
         }
     }
+    #endregion
 }

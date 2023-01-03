@@ -5,18 +5,24 @@ using UnityEngine;
 public class CharacterLocomotion
 {
     private Rigidbody2D rigidbody;
+    
+    #region variables
     private Vector2 workspace;
 
-    private const float dragThreshold = 0.1f;
+    private const float c_dragThreshold = 0.1f;
 
     public Vector2 CurrentVelocity { get; private set; }
+    #endregion
 
+    // Constructor
     public CharacterLocomotion(Rigidbody2D _rigidbody)
     {
         rigidbody = _rigidbody;
     }
 
+    #region Get functions
     public Rigidbody2D Rigidbody() => rigidbody;
+    #endregion
 
     #region Set Functions
 
@@ -33,7 +39,7 @@ public class CharacterLocomotion
 
     public void SimulateDrag(float _moveSpeedModifier)
     {
-        if (Mathf.Abs(rigidbody.velocity.x) > dragThreshold)
+        if (Mathf.Abs(rigidbody.velocity.x) > c_dragThreshold)
         {
             rigidbody.AddForce(new Vector2(_moveSpeedModifier * (CurrentVelocity.x < 0 ? 1 : -1), 0));
         }
@@ -62,6 +68,16 @@ public class CharacterLocomotion
         workspace.Set(CurrentVelocity.x, _yVelocity);
         rigidbody.velocity = workspace;
         CurrentVelocity = workspace;
+    }
+
+    public void SetGravityScale(float _newGravity = 0f)
+    {
+        rigidbody.gravityScale = _newGravity;
+    }
+
+    public void SimulateRigidBody(bool _simulate = true)
+    {
+        rigidbody.simulated = _simulate;
     }
 
     #endregion

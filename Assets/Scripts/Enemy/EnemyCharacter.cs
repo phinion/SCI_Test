@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class EnemyCharacter : CharacterBase
 {
+    #region EnemyBehaviour removed code
     //public EnemyBehaviour enemyBehaviour;
 
     //public delegate void MoveDelegate(Vector2 _moveInput);
     //public delegate void WalkOffDelegate();
+    #endregion
+
+    #region variables
+    // Enums for enemy varients
     public enum Enemy { Basic, Rage, Dropper };
 
     [Header("EnemyCharacter")]
+    // Enemy varient type
     public Enemy type;
 
-    [Header("Basic variables")]
+    [Header("Basic enemy variables")]
     // basic
     protected Vector2 nextDirection = Vector2.zero;
 
-    [Header("Rage variables")]
+    [Header("Rage enemy variables")]
     // rage
     [SerializeField] private float randomJumpChance = 0.05f;
     private bool enraged = false;
 
-    [Header("Dropper variables")]
+    [Header("Dropper enemy variables")]
     //dropper
     private bool waitingToDrop = true;
     private bool dropComplete = false;
@@ -31,6 +37,10 @@ public class EnemyCharacter : CharacterBase
 
     [SerializeField] private float gravityScale = 5f;
     //[SerializeField] private float pounceRandomChance = 0.3f;
+
+    #endregion
+
+    #region Unity Callback Functions
     protected override void Start()
     {
         base.Start();
@@ -39,7 +49,7 @@ public class EnemyCharacter : CharacterBase
         switch (type)
         {
             case Enemy.Dropper:
-                locomotion.Rigidbody().simulated = false;
+                locomotion.SimulateRigidBody(false);
                 startingYPos = transform.position.y;
                 break;
             //rage shares this with basic
@@ -56,6 +66,10 @@ public class EnemyCharacter : CharacterBase
 
         AI();
     }
+    #endregion
+
+    #region AI functions and its varients
+
     protected void AI()
     {
         switch (type)
@@ -72,6 +86,7 @@ public class EnemyCharacter : CharacterBase
         }
     }
 
+    // Basic enemy AI
     void BasicAI()
     {
         if (nextDirection != Vector2.zero)
@@ -83,12 +98,20 @@ public class EnemyCharacter : CharacterBase
             TurnOffWalking();
         }
 
-        if (CheckIfCollideWithTerrain())
+        if (WallCollisionCheck())
         {
             nextDirection *= -1;
         }
     }
+    
+    // Function to manually turn of isActivelyMoving variable and set walking off in animator
+    protected void TurnOffWalking()
+    {
+        isActivelyMoving = false;
+        animationHandler.SetWalkValue(0);
+    }
 
+    // Rage enemy AI
     void RageAI()
     {
         BasicAI();
@@ -106,6 +129,7 @@ public class EnemyCharacter : CharacterBase
         }
     }
 
+    // Dropper Enemy AI
     void DropperAI()
     {
 
@@ -118,7 +142,7 @@ public class EnemyCharacter : CharacterBase
             if (IsGrounded)
             {
                 dropComplete = true;
-                locomotion.Rigidbody().gravityScale = 0f;
+                locomotion.SetGravityScale();
             }
         }
         else
@@ -126,10 +150,28 @@ public class EnemyCharacter : CharacterBase
             DropperFallReset();
         }
 
+    } 
+    
+    // Dropper enemy check to see if player is below and to ground pound
+    private bool CheckIfPlayerisUnderneath()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down);
+
+        if (hit.collider != null)
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                waitingToDrop = false;
+                locomotion.SimulateRigidBody();
+                locomotion.SetGravityScale(gravityScale);
+                return true;
+            }
+            // The player is underneath the gameobject
+        }
+        return false;
     }
 
-
-
+    // Function to reset dropper position after successfully groundpounding
     void DropperFallReset()
     {
         if (transform.position.y < startingYPos)
@@ -141,18 +183,12 @@ public class EnemyCharacter : CharacterBase
             waitingToDrop = true;
             dropComplete = false;
             locomotion.SetVelocityZero();
-            locomotion.Rigidbody().simulated = false;
+            locomotion.SimulateRigidBody(false);
         }
     }
+    #endregion
 
-
-
-    protected void TurnOffWalking()
-    {
-        isActivelyMoving = false;
-        animationHandler.SetWalkValue(0);
-    }
-
+    #region CharacterBase movement override functions
     protected override void Move()
     {
         //check to only set once
@@ -166,11 +202,9 @@ public class EnemyCharacter : CharacterBase
         animationHandler.SetWalkValue(1);
     }
 
-    protected override void Jump()
-    {
-        base.Jump();
-    }
+    #endregion
 
+    #region IHealth function override
     public override void TakeDamage(int amount)
     {
         base.TakeDamage(amount);
@@ -188,6 +222,7 @@ public class EnemyCharacter : CharacterBase
         }
     }
 
+    // Varient for when Rage enemy takes damage. Multiplies speed and turns enemy red
     void RageTakeDamage()
     {
         nextDirection = Random.Range(0, 2) == 1 ? Vector2.left : Vector2.right;
@@ -196,21 +231,5 @@ public class EnemyCharacter : CharacterBase
         GetComponent<SpriteRenderer>().material.color = Color.red;
     }
 
-    private bool CheckIfPlayerisUnderneath()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down);
-
-        if (hit.collider != null)
-        {
-            if (hit.collider.CompareTag("Player"))
-            {
-                waitingToDrop = false;
-                locomotion.Rigidbody().simulated = true;
-                locomotion.Rigidbody().gravityScale = gravityScale;
-                return true;
-            }
-            // The player is underneath the gameobject
-        }
-        return false;
-    }
+    #endregion
 }
